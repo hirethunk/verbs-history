@@ -43,6 +43,9 @@
         "psr-4": {
             "Thunk\\VerbsCommands\\Tests\\": "tests/",
 
+            "Thunk\\VerbsCommands\\Examples\\Tasks\\": "examples/Tasks/src/",
+            "Thunk\\VerbsCommands\\Examples\\Tasks\\Tests\\": "examples/Tasks/tests/",
+
             "Workbench\\App\\": "workbench/app/",
             "Workbench\\Database\\Factories\\": "workbench/database/factories/",
             "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"

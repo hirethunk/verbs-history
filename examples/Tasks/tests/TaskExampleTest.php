@@ -1,0 +1,5 @@
+<?php
+
+it('test', function () {
+    //
+});

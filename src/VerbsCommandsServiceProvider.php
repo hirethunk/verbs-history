@@ -2,6 +2,7 @@
 
 namespace Thunk\VerbsCommands;
 
+use Modules\VerbsCommands\VerbsCommandRegistry;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Thunk\VerbsCommands\Livewire\SupportVerbsCommands;
@@ -28,6 +29,8 @@ class VerbsCommandsServiceProvider extends PackageServiceProvider
     public function boot()
     {
         parent::boot();
+
+        app()->singleton(VerbsCommandRegistry::class);
 
         if ($this->app->has('livewire')) {
             $manager = $this->app->make('livewire');

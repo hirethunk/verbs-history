@@ -1,6 +1,6 @@
 <?php
 
-namespace Thunk\Verbs\Tests;
+namespace Thunk\VerbsCommands\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Events\QueryExecuted;
@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\SplFileInfo;
-use Thunk\Verbs\VerbsCommandsServiceProvider;
+use Thunk\VerbsCommands\VerbsCommandsServiceProvider;
 
 class TestCase extends Orchestra
 {
