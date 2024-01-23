@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Events;
+
+use Thunk\Verbs\Event;
+
+class << CLASSNAME >> extends Event
+{
+    public function handle()
+    {
+        // << LYRIC >> - Lil Wayne
+    }
+}

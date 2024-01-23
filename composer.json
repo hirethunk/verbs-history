@@ -1,0 +1,92 @@
+{
+    "name": "hirethunk/verbs-commands",
+    "description": "An event sourcing package that feels nice.",
+    "keywords": [
+        "hirethunk",
+        "laravel",
+        "event-sourcing",
+        "verbs",
+        "commands"
+    ],
+    "homepage": "https://github.com/hirethunk/verbs-commands",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thunk, Inc.",
+            "email": "ka@thunk.dev",
+            "role": "We build software for money. We also build it for fun."
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "hirethunk/verbs": "^0.0.8"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.13",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^7.10",
+        "orchestra/testbench": "^8.14",
+        "pestphp/pest": "^2.24",
+        "pestphp/pest-plugin-arch": "^2.4",
+        "pestphp/pest-plugin-laravel": "^2.2",
+        "pestphp/pest-plugin-watch": "^2.0",
+        "phpunit/phpunit": "^10.4.2",
+        "projektgopher/whisky": "^0.5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Thunk\\VerbsCommands\\": "src/",
+            "Thunk\\VerbsCommands\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Thunk\\VerbsCommands\\Tests\\": "tests/",
+
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "post-install-cmd": [
+            "whisky update"
+        ],
+        "post-update-cmd": [
+            "whisky update"
+        ],
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint",
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Thunk\\VerbsCommands\\VerbsCommandsServiceProvider"
+            ],
+            "aliases": {
+                "Verbs": "Thunk\\VerbsCommands\\Facades\\Commands"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
