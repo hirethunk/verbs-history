@@ -2,7 +2,7 @@
 
 namespace Thunk\VerbsCommands;
 
-use Modules\VerbsCommands\VerbsCommandRegistry;
+use Thunk\VerbsCommands\VerbsCommandRegistry;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Thunk\VerbsCommands\Livewire\SupportVerbsCommands;
