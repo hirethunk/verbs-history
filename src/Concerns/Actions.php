@@ -2,7 +2,6 @@
 
 namespace Thunk\VerbsCommands\Concerns;
 
-use Illuminate\Support\Collection;
 use Thunk\Verbs\Event;
 use Thunk\VerbsCommands\Collections\ActionCollection;
 

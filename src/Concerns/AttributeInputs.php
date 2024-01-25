@@ -21,13 +21,12 @@ trait AttributeInputs
         $validInput = PropertyCollection::fromClass(static::class)
             ->presentIn($context);
 
-        if ($validInput->isEmpty())
-        {
+        if ($validInput->isEmpty()) {
             return static::make()->hydrate([]);
         }
 
         return static::make(...$validInput);
-            // ->ensureWeHaveAllThePropertiesThatAreNotInputtable(static::class);
+        // ->ensureWeHaveAllThePropertiesThatAreNotInputtable(static::class);
     }
 
     public static function validateUserInput($input): PropertyCollection

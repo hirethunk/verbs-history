@@ -2,9 +2,9 @@
 
 namespace Thunk\VerbsCommands;
 
-use Thunk\Verbs\Support\PendingEvent;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Thunk\Verbs\Support\PendingEvent;
 use Thunk\VerbsCommands\Livewire\SupportVerbsCommands;
 
 class VerbsCommandsServiceProvider extends PackageServiceProvider
