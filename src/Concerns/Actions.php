@@ -16,10 +16,10 @@ trait Actions
                 $event = $action::makeWithContext($context);
 
                 dump(
-                    $action,
-                    PropertyCollection::fromClass($action)->hasRequiredParams($context)
-                        && $event->isAllowed()
-                        && $event->isValid()
+                    'action = ' . $action,
+                    'hasRequiredParams($context) = ' . PropertyCollection::fromClass($action)->hasRequiredParams($context),
+                    'isAllowed() = ' . $event->isAllowed(),
+                    'isValid() = ' . $event->isValid()
                 );
 
                 return PropertyCollection::fromClass($action)->hasRequiredParams($context)
