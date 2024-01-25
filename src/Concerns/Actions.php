@@ -4,13 +4,15 @@ namespace Thunk\VerbsCommands\Concerns;
 
 use Illuminate\Support\Collection;
 use Thunk\Verbs\Event;
+use Thunk\VerbsCommands\Collections\ActionCollection;
 
 trait Actions
 {
-    public function availableActions(array $context = []): Collection
+    public function availableActions(array $context = []): ActionCollection
     {
-        return collect(self::allActions())
-            ->filter(function ($action) {
+        return self::allActions()
+            ->filter(function ($action) use ($context) {
+
                 $event = $action::makeWithContext($context);
 
                 return $event->hasAllRequiredParams()

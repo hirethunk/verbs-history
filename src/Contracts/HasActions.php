@@ -9,7 +9,7 @@ interface HasActions
 {
     public static function allActions(): ActionCollection;
 
-    public function availableActions(): ActionCollection;
+    public function availableActions(array $context = []): ActionCollection;
 
     public function fireAction(string $action): Event;
 }

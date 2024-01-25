@@ -47,8 +47,20 @@ class PropertyCollection extends Collection
         return static::make($filtered);
     }
 
-    public function presentIn(): static
+    public function presentIn(iterable $input): static
     {
+        // take context object and trim it down so that it only has
+        // valid properties
+        $input = Arr::wrap($input);
 
+        $filtered = Arr::isAssoc($input)
+            ? $this->filter(
+                fn ($prop) => isset($input[$prop->getName()])
+            )
+            : $this->filter(
+                fn ($prop) => in_array($prop->getName(), $input)
+            );
+
+        return static::make($filtered);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Thunk\VerbsCommands;
 
+use Thunk\Verbs\Support\PendingEvent;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Thunk\VerbsCommands\Livewire\SupportVerbsCommands;
@@ -28,6 +29,10 @@ class VerbsCommandsServiceProvider extends PackageServiceProvider
     public function boot()
     {
         parent::boot();
+
+        PendingEvent::macro('hasAllRequiredParams', function () {
+            return true;
+        });
 
         app()->singleton(VerbsCommandRegistry::class);
 
