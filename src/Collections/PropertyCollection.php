@@ -91,10 +91,10 @@ class PropertyCollection extends Collection
             );
 
         dump(
-            'non-input properties = ' . $this->input(false)->map(fn ($prop) => $prop->getName()),
-            'context has PO ulid = ' . $context->has('purchase_order_ulid'),
-            'valid = ' . $valid,
-            'missing = ' . $missing
+            'non-input properties = '.$this->input(false)->map(fn ($prop) => $prop->getName()),
+            'context has PO ulid = '.$context->has('purchase_order_ulid'),
+            'valid = '.$valid,
+            'missing = '.$missing
         );
 
         return $valid;
