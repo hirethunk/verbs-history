@@ -2,6 +2,7 @@
 
 namespace Thunk\VerbsCommands\Concerns;
 
+use Illuminate\Support\Collection;
 use Thunk\Verbs\Support\PendingEvent;
 use Thunk\VerbsCommands\Collections\PropertyCollection;
 use Thunk\VerbsCommands\Exceptions\MissingInputException;
@@ -16,17 +17,19 @@ trait AttributeInputs
         return static::fire(...$validInput);
     }
 
-    public static function makeWithContext(array $context): PendingEvent
+    public static function makeWithContext(Collection $context): PendingEvent
     {
-        $validInput = PropertyCollection::fromClass(static::class)
-            ->presentIn($context);
+        $valid_input_keys = PropertyCollection::fromClass(static::class)
+            ->presentIn($context)
+            ->map(fn ($prop) => $prop->getName());
+            
+        $valid_input = $context->only($valid_input_keys);
 
-        if ($validInput->isEmpty()) {
+        if ($valid_input->isEmpty()) {
             return static::make()->hydrate([]);
         }
 
-        return static::make(...$validInput);
-        // ->ensureWeHaveAllThePropertiesThatAreNotInputtable(static::class);
+        return static::make(...$valid_input);
     }
 
     public static function validateUserInput($input): PropertyCollection
@@ -55,7 +58,7 @@ trait AttributeInputs
             ->toArray();
     }
 
-    public function ensureWeHaveAllThePropertiesThatAreNotInputtable($class_name)
+    public function hasRequiredParams($class_name)
     {
         $props = PropertyCollection::fromClass($class_name);
 

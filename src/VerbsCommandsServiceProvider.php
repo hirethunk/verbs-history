@@ -31,7 +31,10 @@ class VerbsCommandsServiceProvider extends PackageServiceProvider
         parent::boot();
 
         PendingEvent::macro('hasAllRequiredParams', function () {
-            return true;
+            return collect($this->event->getRequiredParams())
+                ->every(function ($param) {
+                    return $this->params->has($param);
+                });
         });
 
         app()->singleton(VerbsCommandRegistry::class);
