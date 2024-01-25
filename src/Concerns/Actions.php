@@ -2,8 +2,8 @@
 
 namespace Thunk\VerbsCommands\Concerns;
 
-use Thunk\Verbs\Event;
 use Illuminate\Support\Collection;
+use Thunk\Verbs\Event;
 use Thunk\VerbsCommands\Collections\ActionCollection;
 use Thunk\VerbsCommands\Collections\PropertyCollection;
 
@@ -16,12 +16,11 @@ trait Actions
                 $event = $action::makeWithContext($context);
 
                 dump(
-                    $action, 
+                    $action,
                     PropertyCollection::fromClass($action)->hasRequiredParams($context)
                         && $event->isAllowed()
                         && $event->isValid()
                 );
-
 
                 return PropertyCollection::fromClass($action)->hasRequiredParams($context)
                     && $event->isAllowed()

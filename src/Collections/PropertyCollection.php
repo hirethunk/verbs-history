@@ -2,9 +2,9 @@
 
 namespace Thunk\VerbsCommands\Collections;
 
-use ReflectionClass;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use ReflectionClass;
 use Thunk\VerbsCommands\Attributes\VerbsInput;
 use Thunk\VerbsCommands\Exceptions\MissingPropertyException;
 
@@ -68,8 +68,6 @@ class PropertyCollection extends Collection
     public function hasRequiredParams(Collection $context): bool
     {
 
-        
-
         [$valid, $missing] = $this
             ->input(false)
             ->reduceSpread(
@@ -92,19 +90,16 @@ class PropertyCollection extends Collection
                 collect(),
             );
 
-            dump(
-                $this->input(false)->map(fn ($prop) => $prop->getName()),
-                $context->has('purchase_order_ulid'),
-                $valid,
-                $missing
-            );
+        dump(
+            $this->input(false)->map(fn ($prop) => $prop->getName()),
+            $context->has('purchase_order_ulid'),
+            $valid,
+            $missing
+        );
 
         return $valid;
     }
 }
-
-
-
 
 // function ($prop, $name) {
 //     if (! $this->has($name)) {
