@@ -13,18 +13,11 @@ trait Actions
     {
         return self::allActions()
             ->filter(function ($action) use ($context) {
-                $event = $action::makeWithContext($context);
-
-                dump(
-                    'action = '.$action,
-                    'hasRequiredParams($context) = '.PropertyCollection::fromClass($action)->hasRequiredParams($context),
-                    'isAllowed() = '.$event->isAllowed(),
-                    'isValid() = '.$event->isValid()
-                );
+                $pending_event = $action::makeWithContext($context);
 
                 return PropertyCollection::fromClass($action)->hasRequiredParams($context)
-                    && $event->isAllowed()
-                    && $event->isValid();
+                    && $pending_event->isAllowed()
+                    && $pending_event->isValid();
             });
     }
 

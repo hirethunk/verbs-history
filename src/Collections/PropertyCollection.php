@@ -52,7 +52,8 @@ class PropertyCollection extends Collection
     {
         // take context object and trim it down so that it only has
         // valid properties
-        $input = Arr::wrap($input);
+
+        $input = collect($input)->toArray();
 
         $filtered = Arr::isAssoc($input)
             ? $this->filter(
@@ -89,13 +90,6 @@ class PropertyCollection extends Collection
                 true,
                 collect(),
             );
-
-        dump(
-            'non-input properties = '.$this->input(false)->map(fn ($prop) => $prop->getName()),
-            'context has PO ulid = '.$context->has('purchase_order_ulid'),
-            'valid = '.$valid,
-            'missing = '.$missing
-        );
 
         return $valid;
     }
