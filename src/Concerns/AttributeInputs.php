@@ -22,7 +22,7 @@ trait AttributeInputs
         $valid_input_keys = PropertyCollection::fromClass(static::class)
             ->presentIn($context)
             ->map(fn ($prop) => $prop->getName());
-            
+
         $valid_input = $context->only($valid_input_keys);
 
         if ($valid_input->isEmpty()) {
