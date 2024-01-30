@@ -34,7 +34,7 @@ trait AttributeInputs
 
         // ['some_state_id' => 1, 'some_other_state_id' => 2]
         $state_inputs = collect($states)
-            ->mapWithKeys(function ($state) use ($inputs_that_are_state_inputs)  {
+            ->mapWithKeys(function ($state) use ($inputs_that_are_state_inputs) {
                 $input_name = $inputs_that_are_state_inputs->get(get_class($state));
 
                 return $input_name
@@ -43,7 +43,6 @@ trait AttributeInputs
             });
 
         $combined_context = $context->merge($state_inputs);
-        
 
         $valid_input_keys = PropertyCollection::fromClass(static::class)
             ->presentIn($combined_context)
