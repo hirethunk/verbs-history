@@ -2,8 +2,8 @@
 
 namespace Thunk\VerbsCommands\Examples\Tasks\Events;
 
-use Thunk\VerbsCommands\Attributes\VerbsInput;
 use Thunk\Verbs\Attributes\Autodiscovery\StateId;
+use Thunk\VerbsCommands\Attributes\VerbsInput;
 use Thunk\VerbsCommands\Examples\Tasks\States\TaskState;
 
 class TaskAssigned extends ActionEvent
@@ -30,7 +30,7 @@ class TaskAssigned extends ActionEvent
     {
         $state->assignee = $this->assignee_id;
     }
-    
+
     public static function actionName(): string
     {
         return 'Assign Task';

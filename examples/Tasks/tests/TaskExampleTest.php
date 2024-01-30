@@ -1,13 +1,13 @@
 <?php
 
-use Thunk\VerbsCommands\Examples\Tasks\States\TaskState;
-use Thunk\VerbsCommands\Exceptions\MissingInputException;
 use Thunk\VerbsCommands\Examples\Tasks\Events\TaskArchived;
 use Thunk\VerbsCommands\Examples\Tasks\Events\TaskAssigned;
+use Thunk\VerbsCommands\Examples\Tasks\States\TaskState;
+use Thunk\VerbsCommands\Exceptions\MissingInputException;
 
 beforeEach(function () {
     $this->task = TaskState::factory()->create([
-        'status' => 'brand spanking new'
+        'status' => 'brand spanking new',
     ]);
 });
 
