@@ -2,22 +2,22 @@
 
 namespace Thunk\VerbsCommands\Tests;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
-use Thunk\Verbs\VerbsServiceProvider;
-use Illuminate\Foundation\Application;
-use Symfony\Component\Finder\SplFileInfo;
 use Glhd\Bits\Support\BitsServiceProvider;
-use Illuminate\Database\Migrations\Migrator;
-use Illuminate\Database\Events\QueryExecuted;
-use Orchestra\Testbench\TestCase as Orchestra;
-use Symfony\Component\Console\Input\ArgvInput;
-use InterNACHI\Modular\Support\FinderCollection;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Thunk\VerbsCommands\VerbsCommandsServiceProvider;
+use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Database\Migrations\Migrator;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use InterNACHI\Modular\Support\FinderCollection;
+use Orchestra\Testbench\TestCase as Orchestra;
 use Symfony\Component\Console\Formatter\OutputFormatter;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Finder\SplFileInfo;
+use Thunk\Verbs\VerbsServiceProvider;
+use Thunk\VerbsCommands\VerbsCommandsServiceProvider;
 
 class TestCase extends Orchestra
 {

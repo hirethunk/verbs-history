@@ -9,7 +9,7 @@ class TaskAssigned extends ActionEvent
 {
     #[StateId(TaskState::class)]
     public int $task_id;
-    
+
     public static function actionName(): string
     {
         return 'Assign Task';

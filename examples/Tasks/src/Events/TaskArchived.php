@@ -2,10 +2,6 @@
 
 namespace Thunk\VerbsCommands\Examples\Tasks\Events;
 
-use Thunk\Verbs\Event;
-use Thunk\VerbsCommands\Contracts\Action;
-use Thunk\VerbsCommands\Concerns\AttributeInputs;
-
 class TaskArchived extends ActionEvent
 {
     public static function actionName(): string

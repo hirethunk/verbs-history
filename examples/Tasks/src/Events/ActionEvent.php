@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Thunk\VerbsCommands\Examples\Tasks\Events;
 
@@ -11,5 +11,6 @@ abstract class ActionEvent extends Event implements Action
     use AttributeInputs;
 
     abstract public static function actionName(): string;
+
     abstract public static function actionDescription(): string;
 }
