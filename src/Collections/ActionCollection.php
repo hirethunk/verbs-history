@@ -18,4 +18,9 @@ class ActionCollection extends Collection
             )
         );
     }
+
+    public function keys()
+    {
+        return $this->toBase()->keys();
+    }
 }

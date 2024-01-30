@@ -17,13 +17,39 @@ trait AttributeInputs
         return static::fire(...$valid_input);
     }
 
-    public static function makeWithContext(Collection $context): PendingEvent
+    public static function makeWithContext(Collection $context, iterable $states = []): PendingEvent
     {
+        // @todo: All of this doesnt work
+        // it's pseudo code for now
+        // [SomeState::class => 'some_state_id', SomeOtherState::class => 'some_other_state_id']
+        $inputs_that_are_state_inputs = $this->inputs()->mapWithKeys(
+            function ($input) {
+                $attributes = $this->getAttributesForInput($input, StateId::class);
+
+                return empty($attributes)
+                    ? null
+                    : [$attributes->first()->getArguments()[0] => $input->getName()];
+            }
+        );
+
+        // ['some_state_id' => 1, 'some_other_state_id' => 2]
+        $state_inputs = collect($states)
+            ->mapWithKeys(function ($state) use ($inputs_that_are_state_inputs)  {
+                $input_name = $inputs_that_are_state_inputs->get(get_class($state));
+
+                return $input_name
+                    ? [$input_name => $state->id]
+                    : null;
+            });
+
+        $combined_context = $context->merge($state_inputs);
+        
+
         $valid_input_keys = PropertyCollection::fromClass(static::class)
-            ->presentIn($context)
+            ->presentIn($combined_context)
             ->map(fn ($prop) => $prop->getName());
 
-        $valid_input = $context->only($valid_input_keys);
+        $valid_input = $combined_context->only($valid_input_keys);
 
         if ($valid_input->isEmpty()) {
             return static::make()->hydrate([]);
@@ -34,7 +60,8 @@ trait AttributeInputs
 
     public static function validateUserInput(iterable $input): iterable
     {
-        $props = PropertyCollection::fromClass(static::class);
+        $props = PropertyCollection::fromClass(static::class)
+            ->filter(fn ($i) => $i->getName() !== 'id');
 
         $missing_props = $props->input(false)->missingFrom($input);
         if ($missing_props->isNotEmpty()) {

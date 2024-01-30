@@ -14,7 +14,7 @@ trait Actions
 
         return self::allActions()
             ->filter(function ($action) use ($context) {
-                $pending_event = $action::makeWithContext($context);
+                $pending_event = $action::makeWithContext($context, [$this]);
 
                 return PropertyCollection::fromClass($action)->hasRequiredParams($context)
                     && $pending_event->isAllowed()

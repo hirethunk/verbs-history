@@ -1,5 +1,0 @@
-<?php
-
-it('tests', function () {
-    //
-});

@@ -9,15 +9,6 @@ use Thunk\VerbsCommands\Attributes\VerbsInput;
 
 class PropertyCollection extends Collection
 {
-    public function __construct($items = [])
-    {
-        $items = collect($items)->filter(
-            fn ($i) => $i->getName() !== 'id'
-        );
-
-        parent::__construct($items);
-    }
-
     public static function fromClass(string $class): static
     {
         $reflect = new ReflectionClass($class);

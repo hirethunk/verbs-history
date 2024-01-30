@@ -12,13 +12,13 @@ beforeEach(function () {
 });
 
 it('A test with no required arguments is "available" when none are provided', function () {
-    expect($this->task->availableActions())
+    expect($this->task->availableActions(['task_id' => $this->task->id]))
         ->toContain(TaskArchived::class);
 });
 
 it('A test with required arguments is "unavailable" unless those arguments are provided', function () {
     expect($this->task->availableActions())
-        ->not->toContain(TaskAssigned::class);
+        ->not->toContain(TaskArchived::class);
 });
 
 it('A test with required arguments is "available" when those arguments are provided', function () {
@@ -39,7 +39,7 @@ it('throws MissingInputException if we do not provide all the required input whe
     expect(function () {
         $this->task->fireAction(
             'assign',
-            ['assignee_id' => 1]
+            ['task_id' => $this->task->id]
         );
     })->toThrow(MissingInputException::class);
 });
