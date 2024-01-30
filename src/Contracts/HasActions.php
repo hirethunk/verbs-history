@@ -10,7 +10,7 @@ interface HasActions
 {
     public static function allActions(): ActionCollection;
 
-    public function availableActions(Collection $context): ActionCollection;
+    public function availableActions(?iterable $context = null): ActionCollection;
 
     public function fireAction(string $action): Event;
 }

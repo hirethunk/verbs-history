@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Thunk\VerbsCommands\Examples\Tasks\Events;
 
 use Thunk\Verbs\Event;
 use Thunk\VerbsCommands\Attributes\VerbsInput;

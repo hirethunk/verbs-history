@@ -9,8 +9,10 @@ use Thunk\VerbsCommands\Collections\PropertyCollection;
 
 trait Actions
 {
-    public function availableActions(Collection $context): ActionCollection
+    public function availableActions(?iterable $context = null): ActionCollection
     {
+        $context = collect($context);
+
         return self::allActions()
             ->filter(function ($action) use ($context) {
                 $pending_event = $action::makeWithContext($context);
