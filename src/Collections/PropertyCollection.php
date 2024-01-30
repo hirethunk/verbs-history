@@ -6,10 +6,17 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use Thunk\VerbsCommands\Attributes\VerbsInput;
-use Thunk\VerbsCommands\Exceptions\MissingPropertyException;
 
 class PropertyCollection extends Collection
 {
+    public function __construct($items = []) {
+        $items = collect($items)->filter(
+            fn ($i) => $i->getName() !== 'id'
+        );
+
+        parent::__construct($items);
+    }
+
     public static function fromClass(string $class): static
     {
         $reflect = new ReflectionClass($class);
@@ -35,7 +42,7 @@ class PropertyCollection extends Collection
 
     public function missingFrom(iterable $input): static
     {
-        $input = Arr::wrap($input);
+        $input = collect($input)->toArray();
 
         $filtered = Arr::isAssoc($input)
             ? $this->filter(
@@ -45,7 +52,7 @@ class PropertyCollection extends Collection
                 fn ($prop) => ! in_array($prop->getName(), $input)
             );
 
-        return static::make($filtered);
+        return static::make($filtered->except('id'));
     }
 
     public function presentIn(iterable $input): static

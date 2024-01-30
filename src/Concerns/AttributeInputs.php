@@ -12,9 +12,9 @@ trait AttributeInputs
 {
     public static function fireWithArbitraryInput($input)
     {
-        $validInput = static::validateProperties($input);
+        $valid_input = static::validateUserInput($input);
 
-        return static::fire(...$validInput);
+        return static::fire(...$valid_input);
     }
 
     public static function makeWithContext(Collection $context): PendingEvent
@@ -32,17 +32,19 @@ trait AttributeInputs
         return static::make(...$valid_input);
     }
 
-    public static function validateUserInput($input): PropertyCollection
+    public static function validateUserInput(iterable $input): iterable
     {
         $props = PropertyCollection::fromClass(static::class);
 
-        if ($missing_props = $props->input(false)->missingFrom($input)) {
+        $missing_props = $props->input(false)->missingFrom($input);
+        if ($missing_props->isNotEmpty()) {
             throw new MissingPropertyException(
                 missing: $missing_props->toArray()
             );
         }
 
-        if ($missing_input = $props->input()->missingFrom($input)) {
+        $missing_input = $props->input()->missingFrom($input);
+        if ($missing_input->isNotEmpty()) {
             throw new MissingInputException(
                 missing: $missing_input->toArray()
             );

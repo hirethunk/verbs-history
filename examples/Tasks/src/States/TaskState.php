@@ -13,6 +13,9 @@ class TaskState extends State implements HasActions
 {
     use Actions;
 
+    public string $status = 'new';
+    public ?int $assignee = null;
+
     public static function allActions(): ActionCollection
     {
         return actions([
