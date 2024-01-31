@@ -15,6 +15,6 @@ class MissingPropertyException extends Exception
 
     public function message(): string
     {
-        return "Missing properties: " . implode(', ', $this->missing);
+        return 'Missing properties: '.implode(', ', $this->missing);
     }
 }

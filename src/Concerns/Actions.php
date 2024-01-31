@@ -4,8 +4,8 @@ namespace Thunk\VerbsCommands\Concerns;
 
 use Illuminate\Support\Collection;
 use ReflectionClass;
-use Thunk\Verbs\Event;
 use Thunk\Verbs\Attributes\Autodiscovery\StateId;
+use Thunk\Verbs\Event;
 use Thunk\VerbsCommands\Collections\ActionCollection;
 use Thunk\VerbsCommands\Collections\PropertyCollection;
 
@@ -55,7 +55,7 @@ trait Actions
             );
 
         $state_inputs = collect($states)
-            ->mapWithKeys(function ($state) use ($inputs)  {
+            ->mapWithKeys(function ($state) use ($inputs) {
                 $input_name = $inputs->get(get_class($state));
 
                 return $input_name

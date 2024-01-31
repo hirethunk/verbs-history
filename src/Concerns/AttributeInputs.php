@@ -19,7 +19,7 @@ trait AttributeInputs
     public static function makeWithContext(iterable $context): PendingEvent
     {
         $context = collect($context);
-        
+
         $valid_input_keys = PropertyCollection::fromClass(static::class)
             ->presentIn($context)
             ->map(fn ($prop) => $prop->getName());
