@@ -2,7 +2,10 @@
 
 namespace Thunk\VerbsCommands\Concerns;
 
+use Illuminate\Support\Collection;
+use ReflectionClass;
 use Thunk\Verbs\Event;
+use Thunk\Verbs\Attributes\Autodiscovery\StateId;
 use Thunk\VerbsCommands\Collections\ActionCollection;
 use Thunk\VerbsCommands\Collections\PropertyCollection;
 
@@ -14,9 +17,10 @@ trait Actions
 
         return self::allActions()
             ->filter(function ($action) use ($context) {
-                $pending_event = $action::makeWithContext($context, [$this]);
+                $combined_context = self::combineContextWithStates($action, $context, [$this]);
+                $pending_event = $action::makeWithContext($combined_context);
 
-                return PropertyCollection::fromClass($action)->hasRequiredParams($context)
+                return PropertyCollection::fromClass($action)->hasRequiredParams($combined_context)
                     && $pending_event->isAllowed()
                     && $pending_event->isValid();
             });
@@ -26,6 +30,39 @@ trait Actions
     {
         $action = self::allActions()->get($action);
 
-        return $action::fireWithArbitraryInput($input);
+        $combined_context = self::combineContextWithStates($action, $input, [$this]);
+
+        return $action::fireWithArbitraryInput($combined_context);
+    }
+
+    protected static function combineContextWithStates(
+        string $fqcn,
+        iterable $context,
+        ?iterable $states = []
+    ): Collection {
+        $context = collect($context);
+        $reflector = new ReflectionClass($fqcn);
+
+        $inputs = collect($reflector->getProperties())
+            ->mapWithKeys(
+                function ($input) {
+                    $attributes = $input->getAttributes(StateId::class);
+
+                    return empty($attributes) || empty($attributes[0]->getArguments())
+                        ? []
+                        : [$attributes[0]->getArguments()[0] => $input->getName()];
+                }
+            );
+
+        $state_inputs = collect($states)
+            ->mapWithKeys(function ($state) use ($inputs)  {
+                $input_name = $inputs->get(get_class($state));
+
+                return $input_name
+                    ? [$input_name => $state->id]
+                    : [];
+            });
+
+        return $context->merge($state_inputs);
     }
 }

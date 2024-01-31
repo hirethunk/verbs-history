@@ -2,8 +2,10 @@
 
 namespace Thunk\VerbsCommands\Concerns;
 
+use ReflectionClass;
 use Illuminate\Support\Collection;
 use Thunk\Verbs\Support\PendingEvent;
+use Thunk\Verbs\Attributes\Autodiscovery\StateId;
 use Thunk\VerbsCommands\Collections\PropertyCollection;
 use Thunk\VerbsCommands\Exceptions\MissingInputException;
 use Thunk\VerbsCommands\Exceptions\MissingPropertyException;
@@ -17,39 +19,15 @@ trait AttributeInputs
         return static::fire(...$valid_input);
     }
 
-    public static function makeWithContext(Collection $context, iterable $states = []): PendingEvent
+    public static function makeWithContext(iterable $context): PendingEvent
     {
-        // @todo: All of this doesnt work
-        // it's pseudo code for now
-        // [SomeState::class => 'some_state_id', SomeOtherState::class => 'some_other_state_id']
-        $inputs_that_are_state_inputs = $this->inputs()->mapWithKeys(
-            function ($input) {
-                $attributes = $this->getAttributesForInput($input, StateId::class);
-
-                return empty($attributes)
-                    ? null
-                    : [$attributes->first()->getArguments()[0] => $input->getName()];
-            }
-        );
-
-        // ['some_state_id' => 1, 'some_other_state_id' => 2]
-        $state_inputs = collect($states)
-            ->mapWithKeys(function ($state) use ($inputs_that_are_state_inputs)  {
-                $input_name = $inputs_that_are_state_inputs->get(get_class($state));
-
-                return $input_name
-                    ? [$input_name => $state->id]
-                    : null;
-            });
-
-        $combined_context = $context->merge($state_inputs);
+        $context = collect($context);
         
-
         $valid_input_keys = PropertyCollection::fromClass(static::class)
-            ->presentIn($combined_context)
+            ->presentIn($context)
             ->map(fn ($prop) => $prop->getName());
 
-        $valid_input = $combined_context->only($valid_input_keys);
+        $valid_input = $context->only($valid_input_keys);
 
         if ($valid_input->isEmpty()) {
             return static::make()->hydrate([]);
