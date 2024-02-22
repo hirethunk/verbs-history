@@ -21,7 +21,7 @@ trait Actions
                 $pending_event = $action::makeWithContext($combined_context);
 
                 return PropertyCollection::fromClass($action)->hasRequiredParams($combined_context)
-                    && $pending_event->isAllowed()
+                    && $pending_event->isAuthorized()
                     && $pending_event->isValid();
             });
     }
