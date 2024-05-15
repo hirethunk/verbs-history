@@ -2,9 +2,12 @@
 
 namespace Thunk\VerbsHistory\States\Traits;
 
+use Thunk\Verbs\Event;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
-use Thunk\Verbs\Event;
+use Thunk\VerbsHistory\Facades\History;
+use Thunk\VerbsHistory\States\DTOs\HistoryItem;
+use Thunk\VerbsHistory\States\DTOs\HistoryComponentDto;
 use Thunk\VerbsHistory\States\Interfaces\ExposesHistory;
 
 trait HasHistory
@@ -22,13 +25,18 @@ trait HasHistory
             return $this->history;
         }
 
+        // really we should be doing the message stuff below here instead
+        // if we have a message, pass it in. If we have a component, pass it in
         array_unshift(
             $this->history,
-            [
-                'message' => $event->getHistoryMessage(),
-                'datetime' => now()->toDateTimeString(),
-            ]
+            new HistoryItem(
+                date_time: Carbon::now(),
+                component: $event->asHistory(),
+                message: 
+            )
         );
+
+        dump($this->history);
     }
 
     public function getHistory(?string $sub_history = null): array
@@ -36,21 +44,31 @@ trait HasHistory
         return collect($this->history)
             ->map(
                 function ($item) use ($sub_history) {
-                    $message = match (gettype($item['message'])) {
-                        'array' => Arr::get($item, "message.$sub_history") ?? Arr::get($item, 'message.default'),
-                        'string' => $item['message'],
-                    };
+                    // $value = match (gettype($item['value'])) {
+                    //     'array' => Arr::get($item, "value.$sub_history") ?? Arr::get($item, 'value.default'),
+                    //     'string' => $item['value'],
+                    //     'object' => $item['value'],
+                    // };
+
+                    $message = gettype($item['value'] === 'string'
+                        ? $item['value']
+                        : null
+                    );
+
+                    $component = is_a($item['value'], HistoryComponentDto::class)
+                        ? $item['value']
+                        : null;
 
                     $datetime = Carbon::parse($item['datetime']);
 
-                    return (object) [
-                        'message' => $message,
-                        'datetime' => $datetime,
-                        'human_time' => $datetime->diffForHumans(),
-                    ];
+                    return new HistoryItem(
+                        date_time: $datetime,
+                        message: $message,
+                        component: $component,
+                    );
                 }
             )
-            ->filter(fn ($item) => $item->message)
+            ->filter()
             ->values()
             ->toArray();
     }
