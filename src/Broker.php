@@ -1,6 +1,6 @@
 <?php
 
-namespace Thunk\VerbsCommands;
+namespace Thunk\VerbsHistory;
 
 class Broker
 {

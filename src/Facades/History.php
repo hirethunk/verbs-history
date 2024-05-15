@@ -1,11 +1,11 @@
 <?php
 
-namespace Thunk\VerbsCommands\Facades;
+namespace Thunk\VerbsHistory\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Thunk\VerbsCommands\Broker;
+use Thunk\VerbsHistory\Broker;
 
-class Commands extends Facade
+class History extends Facade
 {
     protected static function getFacadeAccessor()
     {

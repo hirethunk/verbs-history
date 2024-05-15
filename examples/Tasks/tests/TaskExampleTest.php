@@ -1,9 +1,9 @@
 <?php
 
-use Thunk\VerbsCommands\Examples\Tasks\Events\TaskArchived;
-use Thunk\VerbsCommands\Examples\Tasks\Events\TaskAssigned;
-use Thunk\VerbsCommands\Examples\Tasks\States\TaskState;
-use Thunk\VerbsCommands\Exceptions\MissingInputException;
+use Thunk\VerbsHistory\Examples\Tasks\Events\TaskArchived;
+use Thunk\VerbsHistory\Examples\Tasks\Events\TaskAssigned;
+use Thunk\VerbsHistory\Examples\Tasks\States\TaskState;
+use Thunk\VerbsHistory\Exceptions\MissingInputException;
 
 beforeEach(function () {
     $this->task = TaskState::factory()->create([

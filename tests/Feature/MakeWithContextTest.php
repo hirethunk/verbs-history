@@ -3,8 +3,8 @@
 use Composer\EventDispatcher\Event;
 use Thunk\Verbs\Attributes\Autodiscovery\StateId;
 use Thunk\Verbs\State;
-use Thunk\VerbsCommands\Concerns\AttributeInputs;
-use Thunk\VerbsCommands\Contracts\Action;
+use Thunk\VerbsHistory\Concerns\AttributeInputs;
+use Thunk\VerbsHistory\Contracts\Action;
 
 it('can make an event from a combination of context and states', function () {
     //

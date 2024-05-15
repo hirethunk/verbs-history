@@ -1,13 +1,13 @@
 <?php
 
-namespace Thunk\VerbsCommands\Examples\Tasks\States;
+namespace Thunk\VerbsHistory\Examples\Tasks\States;
 
 use Thunk\Verbs\State;
-use Thunk\VerbsCommands\Collections\ActionCollection;
-use Thunk\VerbsCommands\Concerns\Actions;
-use Thunk\VerbsCommands\Contracts\HasActions;
-use Thunk\VerbsCommands\Examples\Tasks\Events\TaskArchived;
-use Thunk\VerbsCommands\Examples\Tasks\Events\TaskAssigned;
+use Thunk\VerbsHistory\Collections\ActionCollection;
+use Thunk\VerbsHistory\Concerns\Actions;
+use Thunk\VerbsHistory\Contracts\HasActions;
+use Thunk\VerbsHistory\Examples\Tasks\Events\TaskArchived;
+use Thunk\VerbsHistory\Examples\Tasks\Events\TaskAssigned;
 
 class TaskState extends State implements HasActions
 {

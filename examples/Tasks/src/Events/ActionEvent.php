@@ -1,10 +1,10 @@
 <?php
 
-namespace Thunk\VerbsCommands\Examples\Tasks\Events;
+namespace Thunk\VerbsHistory\Examples\Tasks\Events;
 
 use Thunk\Verbs\Event;
-use Thunk\VerbsCommands\Concerns\AttributeInputs;
-use Thunk\VerbsCommands\Contracts\Action;
+use Thunk\VerbsHistory\Concerns\AttributeInputs;
+use Thunk\VerbsHistory\Contracts\Action;
 
 abstract class ActionEvent extends Event implements Action
 {

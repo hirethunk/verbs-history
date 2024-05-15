@@ -1,11 +1,11 @@
 <?php
 
-namespace Thunk\VerbsCommands\Examples\Tasks\Events;
+namespace Thunk\VerbsHistory\Examples\Tasks\Events;
 
 use Thunk\Verbs\Event;
-use Thunk\VerbsCommands\Attributes\VerbsInput;
-use Thunk\VerbsCommands\Concerns\AttributeInputs;
-use Thunk\VerbsCommands\Contracts\Action;
+use Thunk\VerbsHistory\Attributes\VerbsInput;
+use Thunk\VerbsHistory\Concerns\AttributeInputs;
+use Thunk\VerbsHistory\Contracts\Action;
 
 class TaskCreated extends Event implements Action
 {

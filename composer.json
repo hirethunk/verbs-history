@@ -1,5 +1,5 @@
 {
-    "name": "hirethunk/verbs-commands",
+    "name": "hirethunk/verbs-history",
     "description": "An event sourcing package that feels nice.",
     "keywords": [
         "hirethunk",
@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "hirethunk/verbs": "0.1.1"
+        "hirethunk/verbs": "dev-main"
     },
     "require-dev": {
         "laravel/pint": "^1.13",
@@ -35,17 +35,15 @@
     },
     "autoload": {
         "psr-4": {
-            "Thunk\\VerbsCommands\\": "src/",
-            "Thunk\\VerbsCommands\\Database\\Factories\\": "database/factories/"
+            "Thunk\\VerbsHistory\\": "src/",
+            "Thunk\\VerbsHistory\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Thunk\\VerbsCommands\\Tests\\": "tests/",
-
-            "Thunk\\VerbsCommands\\Examples\\Tasks\\": "examples/Tasks/src/",
-            "Thunk\\VerbsCommands\\Examples\\Tasks\\Tests\\": "examples/Tasks/tests/",
-
+            "Thunk\\VerbsHistory\\Tests\\": "tests/",
+            "Thunk\\VerbsHistory\\Examples\\Tasks\\": "examples/Tasks/src/",
+            "Thunk\\VerbsHistory\\Examples\\Tasks\\Tests\\": "examples/Tasks/tests/",
             "Workbench\\App\\": "workbench/app/",
             "Workbench\\Database\\Factories\\": "workbench/database/factories/",
             "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
@@ -83,10 +81,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Thunk\\VerbsCommands\\VerbsCommandsServiceProvider"
+                "Thunk\\VerbsHistory\\VerbsHistoryServiceProvider"
             ],
             "aliases": {
-                "Verbs": "Thunk\\VerbsCommands\\Facades\\Commands"
+                "Verbs": "Thunk\\VerbsHistory\\Facades\\Commands"
             }
         }
     },

@@ -2,7 +2,7 @@
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Thunk\VerbsCommands\Tests\TestCase;
+use Thunk\VerbsHistory\Tests\TestCase;
 
 $examples = collect(Finder::create()->directories()->in(__DIR__.'/../examples/')->depth(1)->name('tests'))
     ->map(fn (SplFileInfo $file) => $file->getRealPath())

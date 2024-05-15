@@ -1,10 +1,10 @@
 <?php
 
-namespace Thunk\VerbsCommands\Examples\Tasks\Events;
+namespace Thunk\VerbsHistory\Examples\Tasks\Events;
 
 use Thunk\Verbs\Attributes\Autodiscovery\StateId;
-use Thunk\VerbsCommands\Attributes\VerbsInput;
-use Thunk\VerbsCommands\Examples\Tasks\States\TaskState;
+use Thunk\VerbsHistory\Attributes\VerbsInput;
+use Thunk\VerbsHistory\Examples\Tasks\States\TaskState;
 
 class TaskAssigned extends ActionEvent
 {

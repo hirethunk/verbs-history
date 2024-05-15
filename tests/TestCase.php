@@ -1,6 +1,6 @@
 <?php
 
-namespace Thunk\VerbsCommands\Tests;
+namespace Thunk\VerbsHistory\Tests;
 
 use Glhd\Bits\Support\BitsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\SplFileInfo;
 use Thunk\Verbs\VerbsServiceProvider;
-use Thunk\VerbsCommands\VerbsCommandsServiceProvider;
+use Thunk\VerbsHistory\VerbsHistoryServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -27,7 +27,7 @@ class TestCase extends Orchestra
         return [
             BitsServiceProvider::class,
             VerbsServiceProvider::class,
-            VerbsCommandsServiceProvider::class,
+            VerbsHistoryServiceProvider::class,
         ];
     }
 
