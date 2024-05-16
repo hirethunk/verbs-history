@@ -1,6 +1,7 @@
 <?php
 
 namespace Thunk\VerbsHistory\States\DTOs;
+
 use Thunk\Verbs\SerializedByVerbs;
 use Thunk\Verbs\Support\Normalization\NormalizeToPropertiesAndClassName;
 

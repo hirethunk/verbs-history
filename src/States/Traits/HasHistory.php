@@ -2,12 +2,12 @@
 
 namespace Thunk\VerbsHistory\States\Traits;
 
-use Thunk\Verbs\Event;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Thunk\Verbs\Event;
 use Thunk\VerbsHistory\Facades\History;
-use Thunk\VerbsHistory\States\DTOs\HistoryItem;
 use Thunk\VerbsHistory\States\DTOs\HistoryComponentDto;
+use Thunk\VerbsHistory\States\DTOs\HistoryItem;
 use Thunk\VerbsHistory\States\Interfaces\ExposesHistory;
 
 trait HasHistory
@@ -50,7 +50,7 @@ trait HasHistory
     {
         return collect($this->history)
             ->map(
-                function ($item) use ($sub_history) {
+                function ($item) {
                     // $value = match (gettype($item['value'])) {
                     //     'array' => Arr::get($item, "value.$sub_history") ?? Arr::get($item, 'value.default'),
                     //     'string' => $item['value'],
