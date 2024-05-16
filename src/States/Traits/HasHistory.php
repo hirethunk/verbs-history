@@ -25,18 +25,25 @@ trait HasHistory
             return $this->history;
         }
 
-        // really we should be doing the message stuff below here instead
-        // if we have a message, pass it in. If we have a component, pass it in
+        $item = $event->asHistory();
+
+        $message = gettype($item === 'string'
+            ? $item
+            : null
+        );
+
+        $component = is_a($item, HistoryComponentDto::class)
+            ? $item
+            : null;
+
         array_unshift(
             $this->history,
             new HistoryItem(
                 date_time: Carbon::now(),
-                component: $event->asHistory(),
-                message: 
+                component: $component,
+                message: $message,
             )
         );
-
-        dump($this->history);
     }
 
     public function getHistory(?string $sub_history = null): array
@@ -50,22 +57,7 @@ trait HasHistory
                     //     'object' => $item['value'],
                     // };
 
-                    $message = gettype($item['value'] === 'string'
-                        ? $item['value']
-                        : null
-                    );
-
-                    $component = is_a($item['value'], HistoryComponentDto::class)
-                        ? $item['value']
-                        : null;
-
-                    $datetime = Carbon::parse($item['datetime']);
-
-                    return new HistoryItem(
-                        date_time: $datetime,
-                        message: $message,
-                        component: $component,
-                    );
+                    return $item;
                 }
             )
             ->filter()
