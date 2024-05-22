@@ -5,6 +5,7 @@
 
 <div>
     <ul role="list" class="space-y-6">
+        {{--
         @foreach ($state->getHistory() as $history_item)
             @if($history_item->component)
                 <x-verbs::custom-item
@@ -18,5 +19,6 @@
                 />
             @endif
         @endforeach
+        --}}
     </ul>
 </div>

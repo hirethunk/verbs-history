@@ -2,12 +2,11 @@
 
 namespace Thunk\VerbsHistory\States\DTOs;
 
-use Thunk\Verbs\SerializedByVerbs;
 use Thunk\Verbs\Support\Normalization\NormalizeToPropertiesAndClassName;
 
-class HistoryComponentDto implements SerializedByVerbs
+class HistoryComponentDto
 {
-    use NormalizeToPropertiesAndClassName;
+    // use NormalizeToPropertiesAndClassName;
 
     public function __construct(
         public string $component,

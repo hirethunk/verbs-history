@@ -4,6 +4,7 @@ namespace Thunk\VerbsHistory\States\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Thunk\Verbs\Event;
 use Thunk\VerbsHistory\Facades\History;
 use Thunk\VerbsHistory\States\DTOs\HistoryComponentDto;
@@ -12,7 +13,7 @@ use Thunk\VerbsHistory\States\Interfaces\ExposesHistory;
 
 trait HasHistory
 {
-    public array $history = [];
+    public ?Collection $history = null;
 
     public function shouldSuppress(Event|ExposesHistory $event)
     {
@@ -21,23 +22,22 @@ trait HasHistory
 
     public function applyHistoryEvent(ExposesHistory $event)
     {
+        $this->history ??= collect();
         if ($this->shouldSuppress($event)) {
             return $this->history;
         }
 
         $item = $event->asHistory();
 
-        $message = gettype($item === 'string'
+        $message = gettype($item) === 'string'
             ? $item
-            : null
-        );
+            : null;
 
         $component = is_a($item, HistoryComponentDto::class)
             ? $item
             : null;
 
-        array_unshift(
-            $this->history,
+        $this->history->prepend(
             new HistoryItem(
                 date_time: Carbon::now(),
                 component: $component,
@@ -46,22 +46,27 @@ trait HasHistory
         );
     }
 
-    public function getHistory(?string $sub_history = null): array
+    public function getHistory(?string $sub_history = null): Collection
     {
-        return collect($this->history)
-            ->map(
-                function ($item) {
-                    // $value = match (gettype($item['value'])) {
-                    //     'array' => Arr::get($item, "value.$sub_history") ?? Arr::get($item, 'value.default'),
-                    //     'string' => $item['value'],
-                    //     'object' => $item['value'],
-                    // };
+        $this->history ??= collect();
 
-                    return $item;
-                }
-            )
-            ->filter()
-            ->values()
-            ->toArray();
+        return $this->history;
+        // dump($this->history);
+
+        // return collect($this->history)
+        //     ->map(
+        //         function ($item) {
+        //             // $value = match (gettype($item['value'])) {
+        //             //     'array' => Arr::get($item, "value.$sub_history") ?? Arr::get($item, 'value.default'),
+        //             //     'string' => $item['value'],
+        //             //     'object' => $item['value'],
+        //             // };
+
+        //             return $item;
+        //         }
+        //     )
+        //     ->filter()
+        //     ->values()
+        //     ->toArray();
     }
 }
