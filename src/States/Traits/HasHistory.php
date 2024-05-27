@@ -2,7 +2,6 @@
 
 namespace Thunk\VerbsHistory\States\Traits;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Thunk\Verbs\Event;
@@ -32,7 +31,6 @@ trait HasHistory
             ? collect($item)->map(fn ($item) => $this->normalizeToHistoryItem($item))
             : collect(['default' => $this->normalizeToHistoryItem($item)]);
 
-
         $this->history->prepend(
             $normalized
         );
@@ -58,7 +56,6 @@ trait HasHistory
     public function getHistory(?string $sub_history = 'default'): Collection
     {
         $this->history ??= collect();
-
 
         $history = collect($this->history)
             ->map(
