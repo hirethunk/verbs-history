@@ -6,7 +6,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Thunk\Verbs\Event;
-use Thunk\VerbsHistory\Facades\History;
 use Thunk\VerbsHistory\States\DTOs\HistoryComponentDto;
 use Thunk\VerbsHistory\States\DTOs\HistoryItem;
 use Thunk\VerbsHistory\States\Interfaces\ExposesHistory;
@@ -29,6 +28,18 @@ trait HasHistory
 
         $item = $event->asHistory();
 
+        $normalized = is_array($item)
+            ? collect($item)->map(fn ($item) => $this->normalizeToHistoryItem($item))
+            : collect(['default' => $this->normalizeToHistoryItem($item)]);
+
+
+        $this->history->prepend(
+            $normalized
+        );
+    }
+
+    protected function normalizeToHistoryItem(string|HistoryComponentDto|null $item): HistoryItem
+    {
         $message = gettype($item) === 'string'
             ? $item
             : null;
@@ -37,36 +48,27 @@ trait HasHistory
             ? $item
             : null;
 
-        $this->history->prepend(
-            new HistoryItem(
-                date_time: Carbon::now(),
-                component: $component,
-                message: $message,
-            )
+        return new HistoryItem(
+            date_time: Carbon::now(),
+            component: $component,
+            message: $message,
         );
     }
 
-    public function getHistory(?string $sub_history = null): Collection
+    public function getHistory(?string $sub_history = 'default'): Collection
     {
         $this->history ??= collect();
 
-        return $this->history;
-        // dump($this->history);
 
-        // return collect($this->history)
-        //     ->map(
-        //         function ($item) {
-        //             // $value = match (gettype($item['value'])) {
-        //             //     'array' => Arr::get($item, "value.$sub_history") ?? Arr::get($item, 'value.default'),
-        //             //     'string' => $item['value'],
-        //             //     'object' => $item['value'],
-        //             // };
+        $history = collect($this->history)
+            ->map(
+                function (Collection $item) use ($sub_history) {
+                    return $item->get($sub_history, $item->get('default'));
+                }
+            )
+            ->filter()
+            ->values();
 
-        //             return $item;
-        //         }
-        //     )
-        //     ->filter()
-        //     ->values()
-        //     ->toArray();
+        return $history;
     }
 }

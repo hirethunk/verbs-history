@@ -1,5 +1,6 @@
 @props([
     'dto',
+    'time',
     'isLast' => false,
 ])
 
@@ -14,5 +15,6 @@
     <x-dynamic-component
         :component="$dto->component?->component"
         :attributes="new \Illuminate\View\ComponentAttributeBag($dto->component?->props)"
+        time="{{ $time }}"
     />
 </li>
