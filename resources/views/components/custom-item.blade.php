@@ -1,5 +1,6 @@
 @props([
-    'dto'
+    'dto',
+    'isLast' => false,
 ])
 
 <li class="relative flex gap-x-4">
@@ -10,7 +11,8 @@
     @endUnless
     
     <!-- take the array from the DTO and pass it in here. but also look up what the ComponentAttributeBag function is actually called in blade -->
-    <x-dynamic-component :component="$dto->component" :attributes="new ComponentAttributeBag($dto->props)" />
-
-    <x-some-specified-comonent prop1="value1" prop2="value2" />
+    <x-dynamic-component
+        :component="$dto->component?->component"
+        :attributes="new \Illuminate\View\ComponentAttributeBag($dto->component?->props)"
+    />
 </li>

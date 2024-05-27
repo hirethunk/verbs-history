@@ -5,11 +5,11 @@
 
 <div>
     <ul role="list" class="space-y-6">
-        {{--
         @foreach ($state->getHistory() as $history_item)
             @if($history_item->component)
                 <x-verbs::custom-item
-                    :dto="$history_item"
+                    :dto="$history_item"    
+                    :isLast="$loop->last"
                 />
             @else
                 <x-verbs::item
@@ -19,6 +19,5 @@
                 />
             @endif
         @endforeach
-        --}}
     </ul>
 </div>
