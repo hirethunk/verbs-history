@@ -2,7 +2,9 @@
 
 namespace Thunk\VerbsHistory\States\Interfaces;
 
+use Thunk\VerbsHistory\States\DTOs\HistoryComponentDto;
+
 interface ExposesHistory
 {
-    public function getHistoryMessage(): array|string;
+    public function asHistory(): array|string|HistoryComponentDto;
 }

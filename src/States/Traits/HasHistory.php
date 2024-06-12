@@ -2,14 +2,16 @@
 
 namespace Thunk\VerbsHistory\States\Traits;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Thunk\Verbs\Event;
+use Thunk\VerbsHistory\States\DTOs\HistoryComponentDto;
+use Thunk\VerbsHistory\States\DTOs\HistoryItem;
 use Thunk\VerbsHistory\States\Interfaces\ExposesHistory;
 
 trait HasHistory
 {
-    public array $history = [];
+    public ?Collection $history = null;
 
     public function shouldSuppress(Event|ExposesHistory $event)
     {
@@ -18,40 +20,52 @@ trait HasHistory
 
     public function applyHistoryEvent(ExposesHistory $event)
     {
+        $this->history ??= collect();
         if ($this->shouldSuppress($event)) {
             return $this->history;
         }
 
-        array_unshift(
-            $this->history,
-            [
-                'message' => $event->getHistoryMessage(),
-                'datetime' => now()->toDateTimeString(),
-            ]
+        $item = $event->asHistory();
+
+        $normalized = is_array($item)
+            ? collect($item)->map(fn ($item) => $this->normalizeToHistoryItem($item))
+            : collect(['default' => $this->normalizeToHistoryItem($item)]);
+
+        $this->history->prepend(
+            $normalized
         );
     }
 
-    public function getHistory(?string $sub_history = null): array
+    protected function normalizeToHistoryItem(string|HistoryComponentDto|null $item): HistoryItem
     {
-        return collect($this->history)
+        $message = gettype($item) === 'string'
+            ? $item
+            : null;
+
+        $component = is_a($item, HistoryComponentDto::class)
+            ? $item
+            : null;
+
+        return new HistoryItem(
+            date_time: Carbon::now(),
+            component: $component,
+            message: $message,
+        );
+    }
+
+    public function getHistory(?string $sub_history = 'default'): Collection
+    {
+        $this->history ??= collect();
+
+        $history = collect($this->history)
             ->map(
-                function ($item) use ($sub_history) {
-                    $message = match (gettype($item['message'])) {
-                        'array' => Arr::get($item, "message.$sub_history") ?? Arr::get($item, 'message.default'),
-                        'string' => $item['message'],
-                    };
-
-                    $datetime = Carbon::parse($item['datetime']);
-
-                    return (object) [
-                        'message' => $message,
-                        'datetime' => $datetime,
-                        'human_time' => $datetime->diffForHumans(),
-                    ];
+                function (Collection $item) use ($sub_history) {
+                    return $item->get($sub_history, $item->get('default'));
                 }
             )
-            ->filter(fn ($item) => $item->message)
-            ->values()
-            ->toArray();
+            ->filter()
+            ->values();
+
+        return $history;
     }
 }
