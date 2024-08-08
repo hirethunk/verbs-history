@@ -2,6 +2,10 @@
 
 All notable changes to `:package_name` will be documented in this file.
 
+## v0.5.3 - 2024-08-08
+
+**Full Changelog**: https://github.com/hirethunk/verbs-history/compare/v0.5.2...v0.5.3
+
 ## v0.5.2 - 2024-08-08
 
 **Full Changelog**: https://github.com/hirethunk/verbs-history/compare/v0.5.1...v0.5.2
