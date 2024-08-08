@@ -2,6 +2,20 @@
 
 All notable changes to `:package_name` will be documented in this file.
 
+## v0.5.1 - 2024-08-08
+
+Decided to peg version to Verbs version
+
+### What's Changed
+
+* WIP add-custom-components by @DanielCoulbourne in https://github.com/hirethunk/verbs-history/pull/2
+
+### New Contributors
+
+* @DanielCoulbourne made their first contribution in https://github.com/hirethunk/verbs-history/pull/2
+
+**Full Changelog**: https://github.com/hirethunk/verbs-history/commits/v0.5.1
+
 ## v0.0.8.1 - 2024-01-23
 
 ### What's Changed
