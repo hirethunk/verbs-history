@@ -49,7 +49,7 @@ class ExampleState extends State
 
 ### Events
 
-Any Event which should add it's history to the States, needs to implement the `Thunk\VerbsHistory\States\Interfaces\ExposesHistory` interface.
+Any Event which should add its history to the States, needs to implement the `Thunk\VerbsHistory\States\Interfaces\ExposesHistory` interface.
 
 ```php
 namespace App\Events;
@@ -66,7 +66,7 @@ class ExampleEvent extends Event implements ExposesHistory
 }
 ```
 
-To ensure the Event adheres to the `ExposesHistory` interface, we need to add an `asHistory()` method with the correct return types `array|string|HistoryComponentDto`.
+To ensure the Event adheres to the `ExposesHistory` interface, we need to add an `asHistory()` method with the correct return types `array|string|\Thunk\VerbsHistory\States\DTOs\HistoryComponentDto`.
 
 ```php
 namespace App\Events;
