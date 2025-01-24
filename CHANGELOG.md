@@ -2,6 +2,18 @@
 
 All notable changes to `:package_name` will be documented in this file.
 
+## v0.6.0 - 2025-01-24
+
+### What's Changed
+
+* Add Verbs v0.6 support by @joshhanley in https://github.com/hirethunk/verbs-history/pull/4
+
+### New Contributors
+
+* @joshhanley made their first contribution in https://github.com/hirethunk/verbs-history/pull/4
+
+**Full Changelog**: https://github.com/hirethunk/verbs-history/compare/v0.5.3...v0.6.0
+
 ## v0.5.3 - 2024-08-08
 
 **Full Changelog**: https://github.com/hirethunk/verbs-history/compare/v0.5.2...v0.5.3
