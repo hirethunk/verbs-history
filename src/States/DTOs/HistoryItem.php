@@ -14,8 +14,7 @@ class HistoryItem implements SerializedByVerbs
         public Carbon $date_time,
         public ?HistoryComponentDto $component = null,
         public ?string $message = null,
-    ) {
-    }
+    ) {}
 
     public function humanTime()
     {

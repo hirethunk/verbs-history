@@ -11,6 +11,5 @@ class HistoryComponentDto
     public function __construct(
         public string $component,
         public array $props,
-    ) {
-    }
+    ) {}
 }
